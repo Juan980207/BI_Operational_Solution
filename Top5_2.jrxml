@@ -1,0 +1,118 @@
+<!-- Created with Jaspersoft Studio version 7.0.3.final using JasperReports Library version 7.0.3-41034ca841d452f3305ba55b9042260aaa1ab5dd  -->
+<jasperReport name="Top5 By Number of Orders" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="38ae9aa7-fe49-4593-a50d-96fbdc68f512">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Tech"/>
+	<property name="com.jaspersoft.studio.report.description" value=""/>
+	<style name="Style2">
+		<conditionalStyle mode="Opaque" backcolor="#15ED41">
+			<conditionExpression><![CDATA[$F{total_sales}.doubleValue()>2000]]></conditionExpression>
+		</conditionalStyle>
+		<conditionalStyle mode="Opaque" backcolor="#D11815">
+			<conditionExpression><![CDATA[$F{total_sales}.doubleValue()<500]]></conditionExpression>
+		</conditionalStyle>
+	</style>
+	<style name="Style3">
+		<conditionalStyle mode="Opaque" backcolor="#15ED41">
+			<conditionExpression><![CDATA[$F{total_sales}.doubleValue()>2000]]></conditionExpression>
+		</conditionalStyle>
+		<conditionalStyle mode="Opaque" backcolor="#D11815">
+			<conditionExpression><![CDATA[$F{total_sales}.doubleValue()<500]]></conditionExpression>
+		</conditionalStyle>
+	</style>
+	<parameter name="ProductCategory" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{ProductCategory}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Start_Date" class="java.sql.Date">
+		<defaultValueExpression><![CDATA[$P{Start_Date}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="End_Date" class="java.sql.Date">
+		<defaultValueExpression><![CDATA[$P{End_Date}]]></defaultValueExpression>
+	</parameter>
+	<query language="SQL"><![CDATA[SELECT ROW_NUMBER() OVER (ORDER BY SUM(total_amount) DESC) AS rank,name,COUNT(*) AS number_of_orders, SUM(total_amount) AS total_sales
+FROM crm.crm_erp_view
+WHERE product_category=$P{ProductCategory}
+AND order_date BETWEEN $P{Start_Date} AND $P{End_Date}
+GROUP BY name
+ORDER BY SUM(total_amount) DESC
+LIMIT 5]]></query>
+	<field name="rank" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="rank"/>
+		<property name="com.jaspersoft.studio.field.label" value="rank"/>
+	</field>
+	<field name="name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="name"/>
+		<property name="com.jaspersoft.studio.field.label" value="name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="crm_erp_view"/>
+	</field>
+	<field name="number_of_orders" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="number_of_orders"/>
+		<property name="com.jaspersoft.studio.field.label" value="number_of_orders"/>
+	</field>
+	<field name="total_sales" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="total_sales"/>
+		<property name="com.jaspersoft.studio.field.label" value="total_sales"/>
+	</field>
+	<group name="Group1">
+		<expression><![CDATA[$F{name}]]></expression>
+		<groupHeader>
+			<band height="53">
+				<element kind="staticText" uuid="d6f4e999-b609-409f-ae10-bd7169308f44" mode="Opaque" x="0" y="0" width="100" height="32" forecolor="#666666" backcolor="#E6E6E6" fontSize="12.0">
+					<text><![CDATA[Name]]></text>
+				</element>
+				<element kind="textField" uuid="bfca9e01-3324-4d2f-bef4-4c166ca80fec" mode="Opaque" x="100" y="0" width="455" height="32" forecolor="#C70E42" backcolor="#E6E6E6" fontSize="24.0" bold="true" style="Style2">
+					<expression><![CDATA[$F{name}]]></expression>
+				</element>
+				<element kind="line" uuid="e7468b26-8948-4c4b-892e-5e030733e100" x="-20" y="32" width="595" height="1" forecolor="#666666"/>
+				<element kind="textField" uuid="2c4a3cd8-4de2-4349-aa9d-4fc7e2cf1e05" mode="Opaque" x="280" y="33" width="277" height="20" fontSize="14.0" textAdjust="StretchHeight" linkType="None" linkTarget="Self" printInFirstWholeBand="true" hTextAlign="Center" style="Style3">
+					<expression><![CDATA[$F{total_sales}]]></expression>
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e2c445d4-2e40-4c72-9ba7-fc998f17c6ac"/>
+				</element>
+				<element kind="textField" uuid="04ab73e1-f914-4c1e-92d6-6553bdc4f17a" mode="Opaque" x="0" y="33" width="277" height="20" fontSize="14.0" textAdjust="StretchHeight" linkTarget="Self" printInFirstWholeBand="true" hTextAlign="Center" style="Style2">
+					<expression><![CDATA[$F{number_of_orders}]]></expression>
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d98825e8-cde3-4f6d-b112-f9202bd06b42"/>
+				</element>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background height="113"/>
+	<title height="72">
+		<element kind="frame" uuid="eff37668-7649-46d1-8bfc-6327d7f14747" mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#C46271">
+			<element kind="staticText" uuid="d89965c1-b6bc-42c7-8610-7cdd7edf9587" x="20" y="20" width="555" height="43" forecolor="#FFFFFF" fontSize="34.0" bold="true">
+				<text><![CDATA[Top 5 Customers by Orders]]></text>
+			</element>
+		</element>
+	</title>
+	<pageHeader height="13"/>
+	<columnHeader height="21">
+		<element kind="line" uuid="b809d1c8-0583-4f26-99c6-b8019140108c" x="-20" y="20" width="595" height="1" forecolor="#666666"/>
+		<element kind="staticText" uuid="fe8fc6ae-463f-4e27-aa4f-808a2ac57530" mode="Opaque" x="0" y="0" width="277" height="20" forecolor="#B51222" backcolor="#E6E6E6" fontSize="14.0" bold="true" hTextAlign="Center">
+			<text><![CDATA[Number of Orders]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d98825e8-cde3-4f6d-b112-f9202bd06b42"/>
+		</element>
+		<element kind="staticText" uuid="8b227640-5618-413d-a227-bc6bc20d7622" mode="Opaque" x="277" y="0" width="277" height="20" forecolor="#BF1117" backcolor="#E6E6E6" fontSize="14.0" bold="true" hTextAlign="Center">
+			<text><![CDATA[Total Sales]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e2c445d4-2e40-4c72-9ba7-fc998f17c6ac"/>
+		</element>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<element kind="line" uuid="b5ae5d6a-9506-4e79-8ff5-36898d8efc34" positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1"/>
+		</band>
+	</detail>
+	<columnFooter/>
+	<pageFooter height="17">
+		<element kind="textField" uuid="628ed84b-1fb7-42de-b6e6-4757c5699017" mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6" hTextAlign="Right">
+			<expression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></expression>
+		</element>
+		<element kind="textField" uuid="2a65107f-f1a8-46e3-88b9-48172479e7dc" mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" evaluationTime="Report">
+			<expression><![CDATA[" " + $V{PAGE_NUMBER}]]></expression>
+		</element>
+		<element kind="textField" uuid="0dd10e4a-3241-481a-a18c-01ca48702779" x="0" y="4" width="100" height="13" pattern="EEEEE dd MMMMM yyyy">
+			<expression><![CDATA[new java.util.Date()]]></expression>
+		</element>
+	</pageFooter>
+	<summary/>
+</jasperReport>
