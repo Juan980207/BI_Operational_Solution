@@ -96,5 +96,3 @@ This project focuses on integrating CRM and ERP data into a structured PostgreSQ
 ## Contact
 
 **Juan Manuel González**  
-📧 juanmanuel@example.com  
-🌐 [LinkedIn](https://linkedin.com/in/juanmanuelgonzalez) *(optional)*
