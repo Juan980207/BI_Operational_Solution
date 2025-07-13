@@ -5,13 +5,13 @@ implementation of a robust solution using PostgreSQL with a star schema architec
 
 ### Author: Juan Manuel González
 
-## 📌 Overview
+## Overview
 
 This project focuses on integrating CRM and ERP data into a structured PostgreSQL database, building dynamic reports using Jaspersoft Studio, and creating an interactive Power BI dashboard to analyze key business metrics such as customer acquisition, order performance, and revenue trends.
 
 ---
 
-## ⚙️ Tech Stack
+## Tech Stack
 
 - **Database:** PostgreSQL (with pgAdmin)
 - **Reporting Tool:** Jaspersoft Studio
@@ -21,7 +21,7 @@ This project focuses on integrating CRM and ERP data into a structured PostgreSQ
 
 ---
 
-## 📐 Project Structure
+## Project Structure
 
 ### 1. **Database Design**
 - Used PostgreSQL with two separate schemas:
@@ -45,7 +45,7 @@ This project focuses on integrating CRM and ERP data into a structured PostgreSQ
 
 ---
 
-## 📊 Jaspersoft Report
+## Jaspersoft Report
 
 - Built a modular, dynamic report with grouping by Product and Category.
 - Implemented user-defined parameters (Date, Category) for filtering at SQL level.
@@ -56,7 +56,7 @@ This project focuses on integrating CRM and ERP data into a structured PostgreSQ
 
 ---
 
-## 📈 Power BI Dashboard
+## Power BI Dashboard
 
 - Interactive dashboard created using Power BI Desktop.
 - Features:
@@ -68,7 +68,7 @@ This project focuses on integrating CRM and ERP data into a structured PostgreSQ
 
 ---
 
-## 🚧 Challenges & Solutions
+## Challenges & Solutions
 
 - **Challenge:** Learning and configuring Jaspersoft Studio components and datasets.
 - **Solution:** Resolved through documentation, forums, and hands-on tutorials. Focused on proper parameter passing between main report, crosstab, and subreport for consistency.
